@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Game Style Calculator</title>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background: radial-gradient(circle at center, #1a1a1a, #000);
+      color: lime;
+      font-family: 'Press Start 2P', cursive;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .calculator {
+      background-color: #111;
+      border: 3px solid lime;
+      border-radius: 20px;
+      padding: 30px;
+      width: 100%;
+      max-width: 450px;
+      box-shadow: 0 0 20px lime;
+      text-align: center;
+    }
+
+    h2 {
+      margin-bottom: 20px;
+      color: cyan;
+      text-shadow: 0 0 10px cyan;
+    }
+
+    input[type="number"] {
+      width: 80%;
+      padding: 15px;
+      margin: 15px 0;
+      font-size: 18px;
+      border-radius: 10px;
+      border: none;
+      outline: none;
+      text-align: center;
+      background-color: black;
+      color: lime;
+      box-shadow: 0 0 10px lime;
+    }
+
+    .btn {
+      font-family: 'Press Start 2P', cursive;
+      padding: 15px;
+      margin: 10px;
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+      background: black;
+      color: cyan;
+      box-shadow: 0 0 8px cyan;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .btn:hover {
+      background-color: cyan;
+      color: black;
+      box-shadow: 0 0 15px cyan;
+      transform: scale(1.1);
+    }
+
+    #result {
+      margin-top: 25px;
+      background-color: black;
+      padding: 15px;
+      border-radius: 10px;
+      color: yellow;
+      box-shadow: 0 0 12px yellow;
+      font-size: 1.2rem;
+    }
+
+    audio {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="calculator">
+    <h2>🕹️ Gamer Calc</h2>
+    <input type="number" id="num1" placeholder="First Number" />
+    <input type="number" id="num2" placeholder="Second Number" />
+    <div>
+      <button class="btn" onclick="calculate('add')">+</button>
+      <button class="btn" onclick="calculate('sub')">−</button>
+      <button class="btn" onclick="calculate('mul')">×</button>
+      <button class="btn" onclick="calculate('div')">÷</button>
+    </div>
+    <div id="result">Result: </div>
+  </div>
+
+  <!-- Sound Effects -->
+  <audio id="sound" src="https://assets.mixkit.co/sfx/preview/mixkit-game-click-1114.mp3"></audio>
+
+  <script>
+    function playSound() {
+      document.getElementById("sound").play();
+    }
+
+    function calculate(operation) {
+      playSound();
+      const num1 = parseFloat(document.getElementById("num1").value);
+      const num2 = parseFloat(document.getElementById("num2").value);
+      const resultDiv = document.getElementById("result");
+
+      if (isNaN(num1) || isNaN(num2)) {
+        resultDiv.textContent = "Result: Enter numbers!";
+        return;
+      }
+
+      let result;
+      switch (operation) {
+        case 'add':
+          result = num1 + num2;
+          break;
+        case 'sub':
+          result = num1 - num2;
+          break;
+        case 'mul':
+          result = num1 * num2;
+          break;
+        case 'div':
+          if (num2 === 0) {
+            resultDiv.textContent = "Result: Can't divide by 0!";
+            return;
+          }
+          result = num1 / num2;
+          break;
+      }
+
+      resultDiv.textContent = "Result: " + result;
+    }
+  </script>
+
+</body>
+</html>
